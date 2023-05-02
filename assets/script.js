@@ -39,9 +39,13 @@ const images = [
 const containerHighlighted = document.querySelector('.highlighted');
 const containerThumbs = document.querySelector('.thumbs');
 
-for (let i = 0; i < arrImages.length; i++) {
-	containerHighlighted.innerHTML += `<img src="${arrImages[i]}" alt="" class="${i == 0 ? 'active' : ''}">`;
-	containerThumbs.innerHTML += `<img src="${arrImages[i]}" alt="" class="${i == 0 ? 'active' : ''}">`;
+
+for (let i = 0; i < images.length; i++) {
+
+    containerHighlighted.innerHTML += `<img src="${images[i].image}" alt="" class="${i == 0 ? 'active' : ''}">`;
+    
+    containerThumbs.innerHTML += `<img src="${images[i].image}" alt="" class="${i == 0 ? "active" : ""}">`;
+
 }
 
 
