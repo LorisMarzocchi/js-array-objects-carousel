@@ -44,29 +44,61 @@ for (let i = 0; i < images.length; i++) {
     containerHighlighted.innerHTML +=`
     <div class="imgCont ${i == 0 ? "active" : ""}">
         <img src="${images[i].image}" alt="">
-        <h5 class="title"> ${images[i].title}</h5>
-        <h6 class="text"> ${images[i].text}</h6>
+        <div class="info text-end">
+            <h3> ${images[i].title}</h3>
+            <p> ${images[i].text}</p>
+        </div>
     </div>`;
 
-    // containerHighlighted.innerHTML += `<img src="${images[i].image}" alt="" class="${i == 0 ? 'active' : ''}">`;
-    
     containerThumbs.innerHTML += `<img src="${images[i].image}" alt="" class="${i == 0 ? "active" : ""}">`;
 
 }
 
 
 // selezionimo le immagini nell'html
-const listHighlighted = document.querySelectorAll('.highlighted img');
+const listHighlighted = document.querySelectorAll('.highlighted .imgCont');
 // selezioniamo le miniature
 const listThumbs = document.querySelectorAll('.thumbs img');
 // selezioniamo i bottoni
 const btnPrev = document.querySelector('.btn-prev');
 const btnNext = document.querySelector('.btn-next');
+const btnPlay = document.querySelector('.btn-play');
+const btnStop = document.querySelector('.btn-stop');
 
 
 // definito una variabile che rappresenta lo stato attuale del carosello
 // cioe' l'indice dell'immagine attiva
+
+let stoptime;
+
 let activeIndex = 0;
+
+btnPlay.addEventListener('click',
+    function slide(){
+		clearTimeout(stoptime);
+    		// dall'immagine attiva tolgo la classe active
+		listHighlighted[activeIndex].classList.remove('active');
+		listThumbs[activeIndex].classList.remove('active');
+		// settiamo il nuovo valore di active index
+		activeIndex++;
+		if (activeIndex >= listHighlighted.length) {
+			activeIndex = 0;
+		}
+		// if (activeIndex < 0) {
+		// 	activeIndex = listHighlighted.length - 1;
+		// }
+		// alla nuova immagine attiva aggiungiamo la classe active
+		listHighlighted[activeIndex].classList.add('active');
+		listThumbs[activeIndex].classList.add('active');
+		stoptime = setTimeout(slide, 1000);
+		
+		
+    }
+);
+function stopTimeout() {
+	clearTimeout(stoptime);
+};
+
 
 btnNext.addEventListener('click',
 	function() {
@@ -112,4 +144,4 @@ for (let i = 0; i < listThumbs.length; i++) {
 			listThumbs[activeIndex].classList.add('active');
 		}
 	)
-}
+};
